@@ -78,6 +78,11 @@ body {
   animation: strokeDash 1.2s linear infinite;
 }
 
+.animate-dash-fast {
+  stroke-dasharray: 6 12;
+  animation: strokeDash 0.5s linear infinite;
+}
+
 
 /* Mesh grid background helper */
 .grid-overlay {
@@ -86,3 +91,45 @@ body {
     linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
 }
+
+@keyframes circuitDraw {
+  0% {
+    stroke-dashoffset: 1200;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  50% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    stroke-dashoffset: -1200;
+    opacity: 0;
+  }
+}
+
+.animate-circuit-1 {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: circuitDraw 7s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.animate-circuit-2 {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: circuitDraw 10s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  animation-delay: 1.5s;
+}
+
+.animate-circuit-3 {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: circuitDraw 13s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  animation-delay: 3s;
+}
+
