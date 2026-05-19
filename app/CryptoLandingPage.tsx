@@ -12,27 +12,27 @@ import {
 const chartDataPreset: Record<string, { path: string; gradientStart: string; fillPath: string }> = {
   "1D": {
     path: "M 0 100 Q 50 120 100 80 T 200 110 T 300 70 T 400 90 T 500 50 T 600 75 T 700 40 L 700 160 L 0 160 Z",
-    gradientStart: "#ff4f12",
+    gradientStart: "#00f2fe",
     fillPath: "M 0 100 Q 50 120 100 80 T 200 110 T 300 70 T 400 90 T 500 50 T 600 75 T 700 40 L 700 180 L 0 180 Z"
   },
   "1W": {
     path: "M 0 120 Q 50 70 100 110 T 200 60 T 300 85 T 400 40 T 500 90 T 600 50 T 700 20 L 700 160 L 0 160 Z",
-    gradientStart: "#ff3d00",
+    gradientStart: "#00c6ff",
     fillPath: "M 0 120 Q 50 70 100 110 T 200 60 T 300 85 T 400 40 T 500 90 T 600 50 T 700 20 L 700 180 L 0 180 Z"
   },
   "1M": {
     path: "M 0 90 Q 50 60 100 100 T 200 80 T 300 95 T 400 60 T 500 40 T 600 30 T 700 10 L 700 160 L 0 160 Z",
-    gradientStart: "#f97316",
+    gradientStart: "#4facfe",
     fillPath: "M 0 90 Q 50 60 100 100 T 200 80 T 300 95 T 400 60 T 500 40 T 600 30 T 700 10 L 700 180 L 0 180 Z"
   },
   "1Y": {
     path: "M 0 140 Q 50 130 100 110 T 200 95 T 300 70 T 400 85 T 500 50 T 600 35 T 700 15 L 700 160 L 0 160 Z",
-    gradientStart: "#ff4f12",
+    gradientStart: "#00f2fe",
     fillPath: "M 0 140 Q 50 130 100 110 T 200 95 T 300 70 T 400 85 T 500 50 T 600 35 T 700 15 L 700 180 L 0 180 Z"
   },
   "ALL": {
     path: "M 0 150 Q 50 120 100 130 T 200 90 T 300 80 T 400 50 T 500 60 T 600 30 T 700 5 L 700 160 L 0 160 Z",
-    gradientStart: "#ff3d00",
+    gradientStart: "#00c6ff",
     fillPath: "M 0 150 Q 50 120 100 130 T 200 90 T 300 80 T 400 50 T 500 60 T 600 30 T 700 5 L 700 180 L 0 180 Z"
   }
 };
@@ -213,6 +213,22 @@ export default function CryptoLandingPage() {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [hoveredRouteNode, setHoveredRouteNode] = useState<string | null>(null);
 
+  const [scale, setScale] = useState(1);
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!containerRef) return;
+    const handleResize = () => {
+      const parentWidth = containerRef.getBoundingClientRect().width;
+      const targetWidth = 1000;
+      setScale(Math.min(1, parentWidth / targetWidth));
+    };
+    handleResize();
+    const observer = new ResizeObserver(handleResize);
+    observer.observe(containerRef);
+    return () => observer.disconnect();
+  }, [containerRef]);
+
   // Live Auditing Console Logs State
   const [logs, setLogs] = useState<string[]>([
     "INITIALIZING SECURE SESSION",
@@ -296,7 +312,7 @@ export default function CryptoLandingPage() {
   } as any;
 
   return (
-    <div className="min-h-screen bg-[#030303] text-slate-100 font-sans selection:bg-[#ff4f12]/30 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#03060a] text-slate-100 font-sans selection:bg-[#00f2fe]/30 selection:text-white relative overflow-x-hidden">
       {/* Background Mesh Overlay */}
       <div className="absolute inset-0 grid-overlay pointer-events-none z-0" />
 
@@ -309,9 +325,9 @@ export default function CryptoLandingPage() {
           <path d="M 60,0 L 60,100 L 90,130 L 90,300 L 50,340 L 50,550 L 80,580 L 80,780 L 60,800 L 60,1000" stroke="rgba(255,255,255,0.03)" strokeWidth="1.5" />
 
           {/* Animating glow pulses */}
-          <path d="M 20,0 L 20,150 L 50,180 L 50,350 L 10,390 L 10,600 L 40,630 L 40,850 L 20,870 L 20,1000" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-1" />
-          <path d="M 40,0 L 40,200 L 70,230 L 70,450 L 30,490 L 30,700 L 60,730 L 60,900 L 40,920 L 40,1000" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-2" />
-          <path d="M 60,0 L 60,100 L 90,130 L 90,300 L 50,340 L 50,550 L 80,580 L 80,780 L 60,800 L 60,1000" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-3" />
+          <path d="M 20,0 L 20,150 L 50,180 L 50,350 L 10,390 L 10,600 L 40,630 L 40,850 L 20,870 L 20,1000" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-1" />
+          <path d="M 40,0 L 40,200 L 70,230 L 70,450 L 30,490 L 30,700 L 60,730 L 60,900 L 40,920 L 40,1000" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-2" />
+          <path d="M 60,0 L 60,100 L 90,130 L 90,300 L 50,340 L 50,550 L 80,580 L 80,780 L 60,800 L 60,1000" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-3" />
         </svg>
       </div>
 
@@ -324,28 +340,28 @@ export default function CryptoLandingPage() {
           <path d="M 40,0 L 40,100 L 10,130 L 10,300 L 50,340 L 50,550 L 20,580 L 20,780 L 40,800 L 40,1000" stroke="rgba(255,255,255,0.03)" strokeWidth="1.5" />
 
           {/* Animating glow pulses */}
-          <path d="M 80,0 L 80,150 L 50,180 L 50,350 L 90,390 L 90,600 L 60,630 L 60,850 L 80,870 L 80,1000" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-1" />
-          <path d="M 60,0 L 60,200 L 30,230 L 30,450 L 70,490 L 70,700 L 40,730 L 40,900 L 60,920 L 60,1000" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-2" />
-          <path d="M 40,0 L 40,100 L 10,130 L 10,300 L 50,340 L 50,550 L 20,580 L 20,780 L 40,800 L 40,1000" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-3" />
+          <path d="M 80,0 L 80,150 L 50,180 L 50,350 L 90,390 L 90,600 L 60,630 L 60,850 L 80,870 L 80,1000" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-1" />
+          <path d="M 60,0 L 60,200 L 30,230 L 30,450 L 70,490 L 70,700 L 40,730 L 40,900 L 60,920 L 60,1000" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-2" />
+          <path d="M 40,0 L 40,100 L 10,130 L 10,300 L 50,340 L 50,550 L 20,580 L 20,780 L 40,800 L 40,1000" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-3" />
         </svg>
       </div>
       
       {/* Header Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-[#ff4f12]/10 blur-[130px] rounded-full pointer-events-none z-0" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-[#00f2fe]/10 blur-[130px] rounded-full pointer-events-none z-0" />
 
       {/* Navigation */}
-      <nav className="fixed w-full z-50 top-0 border-b border-white/5 bg-[#030303]/70 backdrop-blur-md">
+      <nav className="fixed w-full z-50 top-0 border-b border-white/5 bg-[#03060a]/70 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Visual Wave Sync Logo */}
-            <div className="w-9 h-9 rounded-lg bg-[#0c0c12] border border-[#ff4f12]/30 flex items-center justify-center shadow-[0_0_15px_rgba(255,79,18,0.15)] overflow-hidden">
+            <div className="w-9 h-9 rounded-lg bg-[#0c0c12] border border-[#00f2fe]/30 flex items-center justify-center shadow-[0_0_15px_rgba(0,242,254,0.15)] overflow-hidden">
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
-                <path d="M2 12c3-4 5-4 8 0s5 4 8 0" stroke="#ff4f12" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M6 12c3 4 5 4 8 0s5-4 8 0" stroke="#ff8f66" strokeWidth="2" strokeLinecap="round" />
+                <path d="M2 12c3-4 5-4 8 0s5 4 8 0" stroke="#00f2fe" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M6 12c3 4 5 4 8 0s5-4 8 0" stroke="#4facfe" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </div>
             <span className="text-xl font-bold tracking-tight text-white flex items-center">
-              Wae Sync<span className="text-[#ff4f12] text-xs font-mono ml-1.5 px-1.5 py-0.5 rounded bg-[#ff4f12]/10 border border-[#ff4f12]/20">v2.0</span>
+              Wae Sync<span className="text-[#00f2fe] text-xs font-mono ml-1.5 px-1.5 py-0.5 rounded bg-[#00f2fe]/10 border border-[#00f2fe]/20">v2.0</span>
             </span>
           </div>
 
@@ -358,7 +374,7 @@ export default function CryptoLandingPage() {
           </div>
 
           <div className="hidden md:flex items-center gap-4">
-            <button className="px-5 py-2.5 text-sm font-medium rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#ff4f12]/50 text-white transition-all shadow-[0_0_15px_rgba(255,79,18,0.05)]">
+            <button className="px-5 py-2.5 text-sm font-medium rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00f2fe]/50 text-white transition-all shadow-[0_0_15px_rgba(0,242,254,0.05)]">
               Launch App
             </button>
           </div>
@@ -382,7 +398,7 @@ export default function CryptoLandingPage() {
               <a href="#features" className="text-lg text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Features</a>
               <a href="#pricing" className="text-lg text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
               <a href="#faqs" className="text-lg text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>FAQs</a>
-              <button className="w-full py-3 mt-2 text-sm font-medium rounded-full bg-gradient-to-r from-[#ff5722] to-[#ff2b06] text-white">
+              <button className="w-full py-3 mt-2 text-sm font-extrabold rounded-full bg-gradient-to-r from-[#00f2fe] to-[#4facfe] text-[#03060a]">
                 Launch App
               </button>
             </motion.div>
@@ -404,9 +420,9 @@ export default function CryptoLandingPage() {
           {/* Top Pill Alert */}
           <motion.div 
             variants={fadeIn} 
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff4f12]/10 border border-[#ff4f12]/20 text-[#ff4f12] text-xs font-semibold tracking-wide mb-8 animate-pulse-glow"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00f2fe]/10 border border-[#00f2fe]/20 text-[#00f2fe] text-xs font-semibold tracking-wide mb-8 animate-pulse-glow"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#ff4f12]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00f2fe]" />
             DEFI MULTI-CHAIN PORTFOLIO TRACKING LIVE
           </motion.div>
           
@@ -415,7 +431,7 @@ export default function CryptoLandingPage() {
             className="text-5xl md:text-8xl font-black tracking-tight text-white mb-6 leading-[1.08] max-w-3xl"
           >
             Every asset and crypto you own, <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff5722] via-[#ff3d00] to-[#f97316] drop-shadow-[0_0_20px_rgba(255,79,18,0.2)]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] via-[#00c6ff] to-[#4facfe] drop-shadow-[0_0_20px_rgba(0,242,254,0.25)]">
               clearly in one place.
             </span>
           </motion.h1>
@@ -424,14 +440,14 @@ export default function CryptoLandingPage() {
             variants={fadeIn} 
             className="text-lg text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed"
           >
-            Track your balances, portfolios, yields and activity across 100+ chains and exchanges in a single read-only workspace.
+            Track your portfolios, yields and activity across 100+ chains in a high-performance cyber-workspace.
           </motion.p>
           
           <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 w-full sm:w-auto">
-            <button className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-[#ff5722] to-[#ff2b06] text-white font-semibold hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_35px_rgba(255,79,18,0.3)]">
-              Start Tracking <ChevronRight className="w-4 h-4" />
+            <button className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-[#00f2fe] to-[#4facfe] text-[#03060a] font-black hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_35px_rgba(0,242,254,0.35)]">
+              Start Tracking <ChevronRight className="w-4 h-4 stroke-[3]" />
             </button>
-            <button className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-colors">
+            <button className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 hover:border-[#00f2fe]/40 transition-all shadow-[0_0_15px_rgba(0,242,254,0.05)]">
               View Demo
             </button>
           </motion.div>
@@ -446,10 +462,10 @@ export default function CryptoLandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="rounded-3xl border border-white/5 bg-[#0a0a0f]/80 backdrop-blur-xl p-3 md:p-6 relative overflow-hidden shadow-[0_0_80px_rgba(255,79,18,0.06)]"
+            className="rounded-3xl border border-white/5 bg-[#0a0a0f]/80 backdrop-blur-xl p-3 md:p-6 relative overflow-hidden shadow-[0_0_80px_rgba(0,242,254,0.06)]"
           >
             {/* Ambient Background Gradient for the mockup */}
-            <div className="absolute top-0 right-0 w-[450px] h-[350px] bg-[#ff4f12]/5 blur-[100px] rounded-full pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[450px] h-[350px] bg-[#00f2fe]/5 blur-[100px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-purple-500/5 blur-[100px] rounded-full pointer-events-none" />
 
             <div className="border border-white/5 rounded-2xl overflow-hidden bg-[#050508]/90 flex flex-col md:flex-row h-[550px]">
@@ -458,8 +474,8 @@ export default function CryptoLandingPage() {
                 <div className="space-y-6">
                   {/* Sidebar Brand */}
                   <div className="flex items-center gap-2 px-2">
-                    <div className="w-6 h-6 rounded bg-[#ff4f12]/10 border border-[#ff4f12]/20 flex items-center justify-center">
-                      <svg className="w-3.5 h-3.5 text-[#ff4f12]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <div className="w-6 h-6 rounded bg-[#00f2fe]/10 border border-[#00f2fe]/20 flex items-center justify-center">
+                      <svg className="w-3.5 h-3.5 text-[#00f2fe]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <circle cx="12" cy="12" r="10" />
                         <path d="M12 8a4 4 0 100 8" />
                       </svg>
@@ -479,7 +495,7 @@ export default function CryptoLandingPage() {
                         key={idx} 
                         className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
                           item.active 
-                            ? 'bg-[#ff4f12]/10 border border-[#ff4f12]/20 text-[#ff4f12]' 
+                            ? 'bg-[#00f2fe]/10 border border-[#00f2fe]/20 text-[#00f2fe]' 
                             : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
                         }`}
                       >
@@ -491,7 +507,7 @@ export default function CryptoLandingPage() {
                 </div>
 
                 <div className="p-2 border border-white/5 rounded-xl bg-white/5 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#ff4f12] to-amber-500 flex items-center justify-center text-xs font-bold text-black">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#00f2fe] to-[#4facfe] flex items-center justify-center text-xs font-bold text-black">
                     AF
                   </div>
                   <div className="flex-1 min-w-0">
@@ -512,7 +528,7 @@ export default function CryptoLandingPage() {
                   <div className="flex items-center gap-4 text-xs font-medium text-slate-400">
                     <span>Networks Connected: 5</span>
                     <span className="w-px h-3 bg-white/10" />
-                    <span>Gas Price: <span className="text-[#ff4f12]">18 Gwei</span></span>
+                    <span>Gas Price: <span className="text-[#00f2fe]">18 Gwei</span></span>
                   </div>
                 </div>
 
@@ -550,7 +566,7 @@ export default function CryptoLandingPage() {
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <h4 className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                          <TrendingUp className="w-3.5 h-3.5 text-[#ff4f12]"/> Performance Over Time
+                          <TrendingUp className="w-3.5 h-3.5 text-[#00f2fe]"/> Performance Over Time
                         </h4>
                       </div>
                       {/* Interactive presets */}
@@ -561,7 +577,7 @@ export default function CryptoLandingPage() {
                             onClick={() => setActiveRange(range)}
                             className={`px-2 py-1 text-[9px] font-bold rounded transition-all ${
                               activeRange === range 
-                                ? 'bg-[#ff4f12] text-white shadow-sm' 
+                                ? 'bg-[#00f2fe] text-white shadow-sm' 
                                 : 'text-slate-400 hover:text-slate-200'
                             }`}
                           >
@@ -576,8 +592,8 @@ export default function CryptoLandingPage() {
                       <svg className="absolute inset-0 h-full w-full pointer-events-none" viewBox="0 0 700 180" preserveAspectRatio="none">
                         <defs>
                           <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#ff4f12" stopOpacity="0.25" />
-                            <stop offset="100%" stopColor="#ff4f12" stopOpacity="0.0" />
+                            <stop offset="0%" stopColor="#00f2fe" stopOpacity="0.25" />
+                            <stop offset="100%" stopColor="#00f2fe" stopOpacity="0.0" />
                           </linearGradient>
                         </defs>
                         {/* Shaded Area */}
@@ -601,7 +617,7 @@ export default function CryptoLandingPage() {
                       </svg>
                       {/* Fake hover details */}
                       <div className="absolute top-1/3 left-2/3 flex flex-col items-center -translate-x-1/2">
-                        <div className="w-2 h-2 rounded-full bg-[#ff4f12] ring-4 ring-[#ff4f12]/20" />
+                        <div className="w-2 h-2 rounded-full bg-[#00f2fe] ring-4 ring-[#00f2fe]/20" />
                         <div className="bg-[#12121c] border border-white/10 px-2 py-1 rounded text-[8px] text-white font-mono mt-1 shadow-xl">
                           $14,834.12
                         </div>
@@ -671,15 +687,15 @@ export default function CryptoLandingPage() {
       </section>
 
       {/* Feature Section 1: Address Connectivity & Custom Layouts */}
-      <section id="features" className="py-24 px-6 relative z-10 bg-gradient-to-b from-[#030303] via-[#050508] to-[#030303]">
+      <section id="features" className="py-24 px-6 relative z-10 bg-gradient-to-b from-[#03060a] via-[#050508] to-[#03060a]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-20">
-            <span className="text-xs uppercase font-bold text-[#ff4f12] tracking-widest bg-[#ff4f12]/10 border border-[#ff4f12]/20 px-3 py-1 rounded-full">
+            <span className="text-xs uppercase font-bold text-[#00f2fe] tracking-widest bg-[#00f2fe]/10 border border-[#00f2fe]/20 px-3 py-1 rounded-full">
               INTERFACES
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-white mt-4 mb-4">
               Juggling wallets and chains is hard.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff5722] to-[#ff2b06]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#4facfe]">
                 One-stop management.
               </span>
             </h2>
@@ -690,10 +706,10 @@ export default function CryptoLandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Box 1 (Wide: Span 2 cols) */}
-            <div className="md:col-span-2 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[380px] group hover:border-[#ff4f12]/30 transition-all duration-300">
-              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#ff4f12]/5 blur-[70px] rounded-full pointer-events-none" />
+            <div className="md:col-span-2 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[380px] group hover:border-[#00f2fe]/30 transition-all duration-300">
+              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#00f2fe]/5 blur-[70px] rounded-full pointer-events-none" />
               <div>
-                <span className="text-[10px] font-bold text-[#ff4f12] font-mono uppercase bg-[#ff4f12]/10 border border-[#ff4f12]/20 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-bold text-[#00f2fe] font-mono uppercase bg-[#00f2fe]/10 border border-[#00f2fe]/20 px-2 py-0.5 rounded">
                   Integration Node
                 </span>
                 <h3 className="text-2xl font-bold text-white mt-3 mb-2">Your Multi-Chain Home</h3>
@@ -729,7 +745,7 @@ export default function CryptoLandingPage() {
                           <p className="text-[10px] text-slate-400 font-mono flex items-center gap-1.5 mt-0.5">
                             <span className="text-slate-300 font-medium">{activeNodeData.address}</span>
                             <span className="text-slate-600">•</span>
-                            <span className="text-[#ff4f12] font-bold">{activeNodeData.holdings}</span>
+                            <span className="text-[#00f2fe] font-bold">{activeNodeData.holdings}</span>
                             <span className="text-slate-600">•</span>
                             <span className="text-slate-500">{activeNodeData.count}</span>
                           </p>
@@ -753,7 +769,7 @@ export default function CryptoLandingPage() {
                           y1={90} 
                           x2={node.cx} 
                           y2={node.cy} 
-                          stroke={isHovered ? "rgba(255, 79, 18, 0.45)" : "rgba(255, 79, 18, 0.12)"} 
+                          stroke={isHovered ? "rgba(0, 242, 254, 0.45)" : "rgba(0, 242, 254, 0.12)"} 
                           strokeWidth={isHovered ? 2 : 1.5} 
                           className="transition-all duration-300"
                         />
@@ -762,7 +778,7 @@ export default function CryptoLandingPage() {
                           y1={90} 
                           x2={node.cx} 
                           y2={node.cy} 
-                          stroke="#ff4f12" 
+                          stroke="#00f2fe" 
                           strokeWidth={isHovered ? 2.5 : 1.5} 
                           className={isHovered ? "animate-dash-fast" : "animate-dash"} 
                         />
@@ -771,13 +787,13 @@ export default function CryptoLandingPage() {
                   })}
                   
                   {/* Central Node - Wae Sync */}
-                  <circle cx="250" cy="90" r="36" fill="#ff4f12" className="opacity-10 animate-pulse" />
-                  <circle cx="250" cy="90" r="24" fill="#030303" stroke="#ff4f12" strokeWidth="1.5" />
+                  <circle cx="250" cy="90" r="36" fill="#00f2fe" className="opacity-10 animate-pulse" />
+                  <circle cx="250" cy="90" r="24" fill="#03060a" stroke="#00f2fe" strokeWidth="1.5" />
                   {/* Wave Logo inside central node */}
                   <g transform="translate(238, 78)" className="pointer-events-none">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <path d="M2 12c3-4 5-4 8 0s5 4 8 0" stroke="#ff4f12" strokeWidth="2.5" strokeLinecap="round" />
-                      <path d="M6 12c3 4 5 4 8 0s5-4 8 0" stroke="#ff8f66" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M2 12c3-4 5-4 8 0s5 4 8 0" stroke="#00f2fe" strokeWidth="2.5" strokeLinecap="round" />
+                      <path d="M6 12c3 4 5 4 8 0s5-4 8 0" stroke="#4facfe" strokeWidth="2" strokeLinecap="round" />
                     </svg>
                   </g>
                   <text x="250" y="130" fill="white" fontSize="9" fontWeight="extrabold" textAnchor="middle" fontFamily="sans-serif" className="tracking-wider">WAE SYNC</text>
@@ -797,7 +813,7 @@ export default function CryptoLandingPage() {
                           cx={node.cx} 
                           cy={node.cy} 
                           r={25} 
-                          fill="rgba(255,79,18,0.03)" 
+                          fill="rgba(0,242,254,0.03)" 
                           className={`transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`} 
                         />
                         <circle 
@@ -805,7 +821,7 @@ export default function CryptoLandingPage() {
                           cy={node.cy} 
                           r={20} 
                           fill="#08080c" 
-                          stroke={isHovered ? "#ff4f12" : "rgba(255,255,255,0.08)"} 
+                          stroke={isHovered ? "#00f2fe" : "rgba(255,255,255,0.08)"} 
                           strokeWidth="1.5" 
                           className="transition-all duration-300" 
                         />
@@ -836,7 +852,7 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Box 2 (All Your Coins) */}
-            <div className="p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[380px] group hover:border-[#ff4f12]/30 transition-all duration-300">
+            <div className="p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[380px] group hover:border-[#00f2fe]/30 transition-all duration-300">
               <div>
                 <h3 className="text-xl font-bold text-white mb-1">All Your Coins</h3>
                 <p className="text-slate-400 text-xs leading-relaxed">
@@ -869,7 +885,7 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Box 3 (Yield Farming stats) */}
-            <div className="p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[380px] group hover:border-[#ff4f12]/30 transition-all duration-300">
+            <div className="p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[380px] group hover:border-[#00f2fe]/30 transition-all duration-300">
               <div>
                 <h3 className="text-xl font-bold text-white mb-1">Yield Farming</h3>
                 <p className="text-slate-400 text-xs leading-relaxed">
@@ -894,8 +910,8 @@ export default function CryptoLandingPage() {
                         transition={{ duration: 0.8, delay: idx * 0.1 }}
                         className={`w-full rounded-t-lg ${
                           item.active 
-                            ? 'bg-gradient-to-t from-[#ff5722] to-[#ff2b06] shadow-[0_0_15px_rgba(255,79,18,0.2)]' 
-                            : 'bg-white/10 hover:bg-[#ff4f12]/20 transition-colors'
+                            ? 'bg-gradient-to-t from-[#00f2fe] to-[#4facfe] shadow-[0_0_15px_rgba(0,242,254,0.25)]' 
+                            : 'bg-white/10 hover:bg-[#00f2fe]/20 transition-colors'
                         }`}
                       />
                     </div>
@@ -907,8 +923,8 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Box 4: Cross-Chain Smart Routing (Span 2 cols) */}
-            <div className="md:col-span-2 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[380px] group hover:border-[#ff4f12]/30 transition-all duration-300">
-              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#ff4f12]/5 blur-[70px] rounded-full pointer-events-none" />
+            <div className="md:col-span-2 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[380px] group hover:border-[#00f2fe]/30 transition-all duration-300">
+              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#00f2fe]/5 blur-[70px] rounded-full pointer-events-none" />
               
               {(() => {
                 const routeNodes = [
@@ -957,8 +973,8 @@ export default function CryptoLandingPage() {
                     cx: 170,
                     cy: 140,
                     r: 20,
-                    color: "#ff4f12",
-                    glowColor: "rgba(255,79,18,0.4)",
+                    color: "#00f2fe",
+                    glowColor: "rgba(0,242,254,0.4)",
                     label: "STARGATE",
                     details: {
                       title: "Stargate Router",
@@ -967,8 +983,8 @@ export default function CryptoLandingPage() {
                     },
                     logo: (
                       <>
-                        <circle cx="12" cy="12" r="8" stroke="#ff4f12" strokeWidth="1.5" strokeDasharray="3 1" />
-                        <polygon points="12,7 13.5,10.5 17,12 13.5,13.5 12,17 10.5,13.5 7,12 10.5,10.5" fill="#ff4f12" />
+                        <circle cx="12" cy="12" r="8" stroke="#00f2fe" strokeWidth="1.5" strokeDasharray="3 1" />
+                        <polygon points="12,7 13.5,10.5 17,12 13.5,13.5 12,17 10.5,13.5 7,12 10.5,10.5" fill="#00f2fe" />
                       </>
                     )
                   },
@@ -999,7 +1015,7 @@ export default function CryptoLandingPage() {
                     {/* Left side: route parameters */}
                     <div className="flex flex-col justify-between md:w-[45%] h-full">
                       <div>
-                        <span className="text-[10px] font-bold text-[#ff4f12] font-mono uppercase bg-[#ff4f12]/10 border border-[#ff4f12]/20 px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-bold text-[#00f2fe] font-mono uppercase bg-[#00f2fe]/10 border border-[#00f2fe]/20 px-2 py-0.5 rounded">
                           SMART ENGINE
                         </span>
                         <h3 className="text-2xl font-bold text-white mt-3 mb-2">Cross-Chain Routing</h3>
@@ -1033,7 +1049,7 @@ export default function CryptoLandingPage() {
                                   <span className="text-slate-400 font-mono">10,000 USDC</span>
                                   <span className="text-slate-500">Base</span>
                                 </div>
-                                <div className="flex justify-between text-[11px] text-slate-500 pl-2 border-l border-[#ff4f12]/30 my-0.5">
+                                <div className="flex justify-between text-[11px] text-slate-500 pl-2 border-l border-[#00f2fe]/30 my-0.5">
                                   <span>Uniswap V3 → Stargate</span>
                                   <span>Slippage: 0.05%</span>
                                 </div>
@@ -1083,30 +1099,30 @@ export default function CryptoLandingPage() {
                         <svg className="w-full h-full" viewBox="0 0 280 200">
                           {/* Connecting Paths */}
                           {/* Base to Router */}
-                          <path d="M 40 100 L 110 60" stroke="rgba(255,79,18,0.1)" strokeWidth="2.5" />
+                          <path d="M 40 100 L 110 60" stroke="rgba(0,242,254,0.1)" strokeWidth="2.5" />
                           <path 
                             d="M 40 100 L 110 60" 
-                            stroke="#ff4f12" 
+                            stroke="#00f2fe" 
                             strokeWidth="2.5" 
                             strokeDasharray="6 12" 
                             className={hoveredRouteNode ? "animate-dash-fast" : "animate-dash"} 
                           />
                           
                           {/* Router to Stargate */}
-                          <path d="M 110 60 L 170 140" stroke="rgba(255,79,18,0.1)" strokeWidth="2.5" />
+                          <path d="M 110 60 L 170 140" stroke="rgba(0,242,254,0.1)" strokeWidth="2.5" />
                           <path 
                             d="M 110 60 L 170 140" 
-                            stroke="#ff8f66" 
+                            stroke="#4facfe" 
                             strokeWidth="2.5" 
                             strokeDasharray="6 12" 
                             className={hoveredRouteNode ? "animate-dash-fast" : "animate-dash"} 
                           />
 
                           {/* Stargate to Arbitrum */}
-                          <path d="M 170 140 L 240 100" stroke="rgba(255,79,18,0.1)" strokeWidth="2.5" />
+                          <path d="M 170 140 L 240 100" stroke="rgba(0,242,254,0.1)" strokeWidth="2.5" />
                           <path 
                             d="M 170 140 L 240 100" 
-                            stroke="#ff4f12" 
+                            stroke="#00f2fe" 
                             strokeWidth="2.5" 
                             strokeDasharray="6 12" 
                             className={hoveredRouteNode ? "animate-dash-fast" : "animate-dash"} 
@@ -1186,7 +1202,7 @@ export default function CryptoLandingPage() {
       </section>
 
       {/* Feature Section 2: "One Platform, Total Control" */}
-      <section className="py-24 px-6 relative z-10 border-t border-white/5 bg-[#030303]">
+      <section className="py-24 px-6 relative z-10 border-t border-white/5 bg-[#03060a]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-black text-white">One Platform, Total Control</h2>
@@ -1200,20 +1216,20 @@ export default function CryptoLandingPage() {
               {
                 title: "Unified Dashboard",
                 desc: "See all your tokens, DeFi liquidity pools, yields, and NFTs in a single aggregated workspace.",
-                icon: <Layers className="w-6 h-6 text-[#ff4f12]" />
+                icon: <Layers className="w-6 h-6 text-[#00f2fe]" />
               },
               {
                 title: "Secure Connection",
                 desc: "100% read-only access ensuring your private keys never leave your custody or get compromised.",
-                icon: <Lock className="w-6 h-6 text-[#ff4f12]" />
+                icon: <Lock className="w-6 h-6 text-[#00f2fe]" />
               },
               {
                 title: "Real-Time Sync",
                 desc: "Instant websocket triggers update your wallet balances automatically as blocks propagate.",
-                icon: <RefreshCw className="w-6 h-6 text-[#ff4f12]" />
+                icon: <RefreshCw className="w-6 h-6 text-[#00f2fe]" />
               }
             ].map((feature, idx) => (
-              <div key={idx} className="p-6 rounded-2xl border border-white/5 bg-[#0a0a0f]/40 relative overflow-hidden group hover:border-[#ff4f12]/30 transition-colors duration-300">
+              <div key={idx} className="p-6 rounded-2xl border border-white/5 bg-[#0a0a0f]/40 relative overflow-hidden group hover:border-[#00f2fe]/30 transition-colors duration-300">
                 <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                   {feature.icon}
                 </div>
@@ -1226,10 +1242,10 @@ export default function CryptoLandingPage() {
       </section>
 
       {/* Feature Section 3: "Amplified with modern capabilities" */}
-      <section className="py-24 px-6 relative z-10 border-t border-white/5 bg-gradient-to-b from-[#030303] to-[#050508]">
+      <section className="py-24 px-6 relative z-10 border-t border-white/5 bg-gradient-to-b from-[#03060a] to-[#050508]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-20">
-            <span className="text-xs uppercase font-bold text-[#ff4f12] tracking-widest bg-[#ff4f12]/10 border border-[#ff4f12]/20 px-3 py-1 rounded-full">
+            <span className="text-xs uppercase font-bold text-[#00f2fe] tracking-widest bg-[#00f2fe]/10 border border-[#00f2fe]/20 px-3 py-1 rounded-full">
               POWER TOOLS
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-white mt-4 mb-4">
@@ -1244,11 +1260,11 @@ export default function CryptoLandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mb-16">
             
             {/* Card 1: Advanced Security (Span 3) */}
-            <div className="md:col-span-3 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[360px] group hover:border-[#10b981]/30 transition-all duration-300">
-              <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-emerald-500/5 blur-[50px] rounded-full pointer-events-none" />
+            <div className="md:col-span-3 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[360px] group hover:border-[#00f2fe]/30 transition-all duration-300">
+              <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-[#00f2fe]/5 blur-[50px] rounded-full pointer-events-none" />
               <div>
                 <h3 className="text-xl font-bold text-white mb-1.5 flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-emerald-400" /> Advanced Security
+                  <Shield className="w-5 h-5 text-[#00f2fe]" /> Advanced Security
                 </h3>
                 <p className="text-slate-400 text-xs leading-relaxed max-w-xs">
                   Zero private-key storage. Cryptographically secure read-only monitoring connects directly to indexers.
@@ -1258,17 +1274,17 @@ export default function CryptoLandingPage() {
               {/* security shield visualizer (Split Console & Radar) */}
               <div className="flex flex-col sm:flex-row items-center gap-6 h-48 mt-2 w-full">
                 {/* Audit Console Log Feed */}
-                <div className="w-full sm:w-1/2 bg-[#050508]/80 border border-white/5 rounded-2xl p-4 font-mono text-[9px] text-emerald-400/80 space-y-1.5 h-36 overflow-hidden relative shadow-inner">
+                <div className="w-full sm:w-1/2 bg-[#050508]/80 border border-white/5 rounded-2xl p-4 font-mono text-[9px] text-[#00f2fe]/80 space-y-1.5 h-36 overflow-hidden relative shadow-inner">
                   {/* Blinking scan effect line */}
-                  <div className="absolute top-0 left-0 w-full h-[1px] bg-emerald-500/10 animate-[bounce_2s_infinite]" />
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-[#00f2fe]/10 animate-[bounce_2s_infinite]" />
                   <div className="flex items-center justify-between border-b border-white/5 pb-1 mb-1.5">
                     <span className="text-[7.5px] text-slate-500 font-bold uppercase tracking-wider">Audit Console</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00f2fe] animate-pulse" />
                   </div>
                   <div className="space-y-1 select-none">
                     {logs.map((log, idx) => (
-                      <p key={idx} className={`flex items-center gap-1.5 transition-all duration-300 ${idx === logs.length - 1 ? "text-emerald-400 font-bold" : "text-emerald-400/60"}`}>
-                        <span className="text-emerald-500 font-bold">&gt;</span>
+                      <p key={idx} className={`flex items-center gap-1.5 transition-all duration-300 ${idx === logs.length - 1 ? "text-[#00f2fe] font-bold" : "text-[#00f2fe]/60"}`}>
+                        <span className="text-[#00f2fe] font-bold">&gt;</span>
                         <span className="truncate">{log}</span>
                       </p>
                     ))}
@@ -1279,28 +1295,28 @@ export default function CryptoLandingPage() {
                 <div className="w-full sm:w-1/2 flex items-center justify-center relative h-36">
                   <div className="relative w-28 h-28 flex items-center justify-center">
                     {/* Concentric Rotating Outer Radar */}
-                    <div className="absolute inset-0 rounded-full border border-dashed border-emerald-500/20 animate-[spin_12s_linear_infinite] group-hover:border-emerald-500/40 transition-colors" />
-                    <div className="absolute inset-3 rounded-full border border-emerald-500/10 animate-[spin_6s_linear_infinite_reverse]" />
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-500/5 via-transparent to-transparent animate-[spin_4s_linear_infinite] pointer-events-none" />
+                    <div className="absolute inset-0 rounded-full border border-dashed border-[#00f2fe]/20 animate-[spin_12s_linear_infinite] group-hover:border-[#00f2fe]/40 transition-colors" />
+                    <div className="absolute inset-3 rounded-full border border-[#00f2fe]/10 animate-[spin_6s_linear_infinite_reverse]" />
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#00f2fe]/5 via-transparent to-transparent animate-[spin_4s_linear_infinite] pointer-events-none" />
                     
                     {/* Inner Shield Logo */}
-                    <div className="w-14 h-14 rounded-full bg-[#08080c] border border-emerald-500/20 group-hover:border-emerald-500/50 flex items-center justify-center text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.1)] group-hover:shadow-[0_0_30px_rgba(16,185,129,0.35)] transition-all duration-500 z-10">
-                      <svg className="w-6 h-6 text-emerald-400 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <div className="w-14 h-14 rounded-full bg-[#08080c] border border-[#00f2fe]/20 group-hover:border-[#00f2fe]/50 flex items-center justify-center text-[#00f2fe] shadow-[0_0_20px_rgba(0,242,254,0.1)] group-hover:shadow-[0_0_30px_rgba(0,242,254,0.35)] transition-all duration-500 z-10">
+                      <svg className="w-6 h-6 text-[#00f2fe] animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                       </svg>
                     </div>
 
                     {/* Blinking satellite dots */}
-                    <div className="absolute top-1/2 left-0 w-2 h-2 rounded-full bg-emerald-400/80 animate-ping" />
-                    <div className="absolute top-4 right-6 w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <div className="absolute top-1/2 left-0 w-2 h-2 rounded-full bg-[#00f2fe]/80 animate-ping" />
+                    <div className="absolute top-4 right-6 w-1.5 h-1.5 rounded-full bg-[#00f2fe]" />
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Card 2: Premium Card Mockup (Span 3) */}
-            <div className="md:col-span-3 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[360px] group hover:border-[#ff4f12]/30 transition-all duration-300">
-              <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-[#ff4f12]/5 blur-[60px] rounded-full pointer-events-none" />
+            <div className="md:col-span-3 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[360px] group hover:border-[#00f2fe]/30 transition-all duration-300">
+              <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-[#00f2fe]/5 blur-[60px] rounded-full pointer-events-none" />
               <div>
                 <h3 className="text-xl font-bold text-white mb-1.5">Premium Card</h3>
                 <p className="text-slate-400 text-xs leading-relaxed max-w-xs">
@@ -1321,7 +1337,7 @@ export default function CryptoLandingPage() {
                   className="w-64 h-38 rounded-2xl bg-gradient-to-br from-[#121218] via-[#050508] to-[#1a1a24] border border-white/10 p-5 flex flex-col justify-between shadow-2xl relative cursor-grab active:cursor-grabbing"
                 >
                   <div className="flex justify-between items-start">
-                    <span className="text-xs font-bold font-mono tracking-widest text-[#ff4f12]">WAE SYNC PRESET</span>
+                    <span className="text-xs font-bold font-mono tracking-widest text-[#00f2fe]">WAE SYNC PRESET</span>
                     <div className="w-7 h-5 bg-white/10 rounded flex items-center justify-center font-mono text-[8px] text-white">CHIP</div>
                   </div>
 
@@ -1340,7 +1356,7 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Card 3: Wallet Analytics (Span 2) */}
-            <div className="md:col-span-2 p-6 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[360px] group hover:border-[#ff4f12]/30 transition-all duration-300">
+            <div className="md:col-span-2 p-6 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[360px] group hover:border-[#00f2fe]/30 transition-all duration-300">
               <div>
                 <h3 className="text-lg font-bold text-white mb-1">Wallet Analytics</h3>
                 <p className="text-slate-400 text-xs">
@@ -1354,7 +1370,7 @@ export default function CryptoLandingPage() {
                   {/* Base Circle */}
                   <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="3" />
                   {/* ETH: 45% */}
-                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ff4f12" strokeWidth="3.2" strokeDasharray="45 100" strokeDashoffset="0" />
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#00f2fe" strokeWidth="3.2" strokeDasharray="45 100" strokeDashoffset="0" />
                   {/* BTC: 35% */}
                   <circle cx="18" cy="18" r="15.915" fill="none" stroke="#a855f7" strokeWidth="3.2" strokeDasharray="35 100" strokeDashoffset="-45" />
                   {/* SOL: 15% */}
@@ -1370,7 +1386,7 @@ export default function CryptoLandingPage() {
 
               {/* Legend */}
               <div className="grid grid-cols-2 gap-1 text-[9px] font-mono font-semibold text-slate-400 mt-2">
-                <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#ff4f12]" /> ETH (45%)</div>
+                <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#00f2fe]" /> ETH (45%)</div>
                 <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#a855f7]" /> BTC (35%)</div>
                 <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#14F195]" /> SOL (15%)</div>
                 <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#0052ff]" /> USDC (5%)</div>
@@ -1378,7 +1394,7 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Card 4: Instant Swaps Widget (Span 2) */}
-            <div className="md:col-span-2 p-6 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[360px] group hover:border-[#ff4f12]/30 transition-all duration-300">
+            <div className="md:col-span-2 p-6 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[360px] group hover:border-[#00f2fe]/30 transition-all duration-300">
               <div>
                 <h3 className="text-lg font-bold text-white mb-1">Instant Swaps</h3>
                 <p className="text-slate-400 text-xs">
@@ -1410,7 +1426,7 @@ export default function CryptoLandingPage() {
                 <div className="absolute left-1/2 top-[35%] -translate-x-1/2 -translate-y-1/2 z-10">
                   <button 
                     onClick={flipTokens}
-                    className="w-7 h-7 rounded-full bg-[#ff4f12] text-white flex items-center justify-center hover:scale-105 transition-transform"
+                    className="w-7 h-7 rounded-full bg-[#00f2fe] text-white flex items-center justify-center hover:scale-105 transition-transform"
                   >
                     <ArrowDownUp className="w-3.5 h-3.5" />
                   </button>
@@ -1428,7 +1444,7 @@ export default function CryptoLandingPage() {
                 <button 
                   onClick={handleSwap} 
                   disabled={isSwapping}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#ff5722] to-[#ff2b06] text-white font-semibold text-xs hover:brightness-110 transition-all flex items-center justify-center gap-2"
+                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#00f2fe] to-[#4facfe] text-[#03060a] font-black text-xs hover:brightness-110 transition-all flex items-center justify-center gap-2"
                 >
                   {isSwapping ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : "Swap Assets"}
                 </button>
@@ -1445,7 +1461,7 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Card 5: DeFi Yields (Span 2) */}
-            <div className="md:col-span-2 p-6 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[360px] group hover:border-[#ff4f12]/30 transition-all duration-300">
+            <div className="md:col-span-2 p-6 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm flex flex-col justify-between h-[360px] group hover:border-[#00f2fe]/30 transition-all duration-300">
               <div>
                 <h3 className="text-lg font-bold text-white mb-1">DeFi Interest</h3>
                 <p className="text-slate-400 text-xs">
@@ -1464,13 +1480,13 @@ export default function CryptoLandingPage() {
                       <p className="text-white text-xs">{item.pool}</p>
                       <p className="text-slate-500 text-[9px] font-mono">{item.dex}</p>
                     </div>
-                    <span className="text-[#ff4f12] font-bold font-mono">{item.apr}</span>
+                    <span className="text-[#00f2fe] font-bold font-mono">{item.apr}</span>
                   </div>
                 ))}
               </div>
 
               <div className="text-[10px] text-slate-500 font-mono text-center flex items-center justify-center gap-1">
-                <CircleDot className="w-2.5 h-2.5 text-[#ff4f12]" /> Synchronized with liquidity nodes
+                <CircleDot className="w-2.5 h-2.5 text-[#00f2fe]" /> Synchronized with liquidity nodes
               </div>
             </div>
             
@@ -1479,13 +1495,13 @@ export default function CryptoLandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-24 px-6 relative z-10 border-t border-white/5 bg-[#030303]">
+      <section id="pricing" className="py-24 px-6 relative z-10 border-t border-white/5 bg-[#03060a]">
         {/* Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#ff4f12]/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#00f2fe]/5 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-xs uppercase font-bold text-[#ff4f12] tracking-widest bg-[#ff4f12]/10 border border-[#ff4f12]/20 px-3 py-1 rounded-full">
+            <span className="text-xs uppercase font-bold text-[#00f2fe] tracking-widest bg-[#00f2fe]/10 border border-[#00f2fe]/20 px-3 py-1 rounded-full">
               PRICING PLANS
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-white mt-4 mb-4">
@@ -1499,15 +1515,15 @@ export default function CryptoLandingPage() {
             <div className="inline-flex items-center gap-3 p-1 rounded-full bg-white/5 border border-white/10 mt-8">
               <button 
                 onClick={() => setIsAnnual(false)}
-                className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${!isAnnual ? 'bg-[#ff4f12] text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
+                className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${!isAnnual ? 'bg-[#00f2fe] text-[#03060a] shadow-md shadow-[#00f2fe]/20' : 'text-slate-400 hover:text-white'}`}
               >
                 Monthly
               </button>
               <button 
                 onClick={() => setIsAnnual(true)}
-                className={`px-5 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2 ${isAnnual ? 'bg-[#ff4f12] text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
+                className={`px-5 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2 ${isAnnual ? 'bg-[#00f2fe] text-[#03060a] shadow-md shadow-[#00f2fe]/20' : 'text-slate-400 hover:text-white'}`}
               >
-                Annually <span className="text-[9px] text-white bg-black/30 px-2 py-0.5 rounded-full font-black">SAVE 20%</span>
+                Annually <span className="text-[9px] text-[#00f2fe] bg-black/60 px-2 py-0.5 rounded-full font-black">SAVE 20%</span>
               </button>
             </div>
           </div>
@@ -1515,7 +1531,7 @@ export default function CryptoLandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Free Pack */}
-            <div className="p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/40 backdrop-blur-sm flex flex-col justify-between h-[450px] group hover:border-[#ff4f12]/20 transition-all">
+            <div className="p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/40 backdrop-blur-sm flex flex-col justify-between h-[450px] group hover:border-[#00f2fe]/20 transition-all">
               <div>
                 <span className="text-[10px] font-bold text-slate-500 font-mono tracking-widest uppercase">BASIC ACCESS</span>
                 <h3 className="text-2xl font-extrabold text-white mt-2 mb-1">Free Pack</h3>
@@ -1525,9 +1541,9 @@ export default function CryptoLandingPage() {
                   <span className="text-slate-500 text-xs">/month</span>
                 </div>
                 <ul className="space-y-3.5 text-xs text-slate-400 font-medium">
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Track up to 3 wallets</li>
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Standard RPC sync (10m)</li>
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Asset breakdown metrics</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Track up to 3 wallets</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Standard RPC sync (10m)</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Asset breakdown metrics</li>
                   <li className="flex items-center gap-2.5 text-slate-600"><X className="w-4 h-4" /> Priority RPC socket updates</li>
                 </ul>
               </div>
@@ -1537,12 +1553,12 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Pro Pack (Recommended Accent) */}
-            <div className="p-8 rounded-3xl border border-[#ff4f12]/40 bg-[#0a0a0f] relative overflow-hidden flex flex-col justify-between h-[450px] shadow-[0_0_35px_rgba(255,79,18,0.15)] group hover:scale-[1.02] transition-all">
-              <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-[#ff5722] to-[#ff2b06] text-black font-extrabold text-[9px] rounded-bl-xl tracking-widest font-mono uppercase">
+            <div className="p-8 rounded-3xl border border-[#00f2fe]/40 bg-[#0a0a0f] relative overflow-hidden flex flex-col justify-between h-[450px] shadow-[0_0_35px_rgba(0,242,254,0.15)] group hover:scale-[1.02] transition-all">
+              <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-[#00f2fe] to-[#4facfe] text-[#03060a] font-black text-[9px] rounded-bl-xl tracking-widest font-mono uppercase">
                 RECOMMENDED
               </div>
               <div>
-                <span className="text-[10px] font-bold text-[#ff4f12] font-mono tracking-widest uppercase">POWER INVESTOR</span>
+                <span className="text-[10px] font-bold text-[#00f2fe] font-mono tracking-widest uppercase">POWER INVESTOR</span>
                 <h3 className="text-2xl font-extrabold text-white mt-2 mb-1">Pro Pack</h3>
                 <p className="text-slate-400 text-xs mb-6">Designed for active web3 traders.</p>
                 <div className="mb-6">
@@ -1550,19 +1566,19 @@ export default function CryptoLandingPage() {
                   <span className="text-slate-500 text-xs">/month</span>
                 </div>
                 <ul className="space-y-3.5 text-xs text-slate-300 font-medium">
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Unlimited wallet tracking</li>
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Priority RPC sync (60s)</li>
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> DeFi staking APR logs</li>
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Tax exporter interface</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Unlimited wallet tracking</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Priority RPC sync (60s)</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> DeFi staking APR logs</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Tax exporter interface</li>
                 </ul>
               </div>
-              <button className="w-full py-3 rounded-full bg-gradient-to-r from-[#ff5722] to-[#ff2b06] text-white font-bold text-xs hover:brightness-110 transition-all shadow-[0_0_20px_rgba(255,79,18,0.2)]">
+              <button className="w-full py-3 rounded-full bg-gradient-to-r from-[#00f2fe] to-[#4facfe] text-[#03060a] font-black text-xs hover:brightness-110 transition-all shadow-[0_0_20px_rgba(0,242,254,0.25)]">
                 Go Pro
               </button>
             </div>
 
             {/* Elite Pack */}
-            <div className="p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/40 backdrop-blur-sm flex flex-col justify-between h-[450px] group hover:border-[#ff4f12]/20 transition-all">
+            <div className="p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/40 backdrop-blur-sm flex flex-col justify-between h-[450px] group hover:border-[#00f2fe]/20 transition-all">
               <div>
                 <span className="text-[10px] font-bold text-slate-500 font-mono tracking-widest uppercase">INSTITUTIONAL</span>
                 <h3 className="text-2xl font-extrabold text-white mt-2 mb-1">Elite Pack</h3>
@@ -1572,10 +1588,10 @@ export default function CryptoLandingPage() {
                   <span className="text-slate-500 text-xs">/month</span>
                 </div>
                 <ul className="space-y-3.5 text-xs text-slate-400 font-medium">
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Unlimited wallets & teams</li>
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Real-time RPC websocket sync</li>
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Dedicated node endpoint</li>
-                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#ff4f12]" /> Premium dashboard beta access</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Unlimited wallets & teams</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Real-time RPC websocket sync</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Dedicated node endpoint</li>
+                  <li className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#00f2fe]" /> Premium dashboard beta access</li>
                 </ul>
               </div>
               <button className="w-full py-3 rounded-full border border-slate-800 text-white font-bold text-xs hover:bg-white/5 transition-colors">
@@ -1588,15 +1604,15 @@ export default function CryptoLandingPage() {
       </section>
 
       {/* Mobile App Promotion Section */}
-      <section className="py-24 px-6 relative z-10 border-t border-white/5 bg-gradient-to-b from-[#030303] to-[#050508] overflow-hidden">
+      <section className="py-24 px-6 relative z-10 border-t border-white/5 bg-gradient-to-b from-[#03060a] to-[#050508] overflow-hidden">
         {/* Left Side Section Circuits */}
         <div className="absolute left-0 top-0 bottom-0 w-[120px] pointer-events-none z-0 hidden lg:block select-none opacity-[0.25]">
           <svg className="w-full h-full" viewBox="0 0 100 600" preserveAspectRatio="none" fill="none">
             <path d="M 10,0 L 10,120 L 40,150 L 40,300 L 15,330 L 15,480 L 35,500 L 35,600" stroke="rgba(255,255,255,0.03)" strokeWidth="1.5" />
             <path d="M 30,0 L 30,160 L 60,190 L 60,350 L 35,380 L 35,520 L 55,540 L 55,600" stroke="rgba(255,255,255,0.03)" strokeWidth="1.5" />
             
-            <path d="M 10,0 L 10,120 L 40,150 L 40,300 L 15,330 L 15,480 L 35,500 L 35,600" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-1" />
-            <path d="M 30,0 L 30,160 L 60,190 L 60,350 L 35,380 L 35,520 L 55,540 L 55,600" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-2" />
+            <path d="M 10,0 L 10,120 L 40,150 L 40,300 L 15,330 L 15,480 L 35,500 L 35,600" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-1" />
+            <path d="M 30,0 L 30,160 L 60,190 L 60,350 L 35,380 L 35,520 L 55,540 L 55,600" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-2" />
           </svg>
         </div>
 
@@ -1606,8 +1622,8 @@ export default function CryptoLandingPage() {
             <path d="M 90,0 L 90,120 L 60,150 L 60,300 L 85,330 L 85,480 L 65,500 L 65,600" stroke="rgba(255,255,255,0.03)" strokeWidth="1.5" />
             <path d="M 70,0 L 70,160 L 40,190 L 40,350 L 65,380 L 65,520 L 45,540 L 45,600" stroke="rgba(255,255,255,0.03)" strokeWidth="1.5" />
 
-            <path d="M 90,0 L 90,120 L 60,150 L 60,300 L 85,330 L 85,480 L 65,500 L 65,600" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-1" />
-            <path d="M 70,0 L 70,160 L 40,190 L 40,350 L 65,380 L 65,520 L 45,540 L 45,600" stroke="#ff4f12" strokeWidth="2" strokeLinecap="round" className="animate-circuit-2" />
+            <path d="M 90,0 L 90,120 L 60,150 L 60,300 L 85,330 L 85,480 L 65,500 L 65,600" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-1" />
+            <path d="M 70,0 L 70,160 L 40,190 L 40,350 L 65,380 L 65,520 L 45,540 L 45,600" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" className="animate-circuit-2" />
           </svg>
         </div>
 
@@ -1619,7 +1635,7 @@ export default function CryptoLandingPage() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="w-56 h-96 rounded-[32px] border-4 border-slate-800 bg-black p-2 relative overflow-hidden mb-12 shadow-[0_0_50px_rgba(255,79,18,0.1)]"
+            className="w-56 h-96 rounded-[32px] border-4 border-slate-800 bg-black p-2 relative overflow-hidden mb-12 shadow-[0_0_50px_rgba(0,242,254,0.1)]"
           >
             {/* Camera notch */}
             <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-3.5 bg-slate-800 rounded-full z-20 flex items-center justify-center">
@@ -1627,7 +1643,7 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Mobile Screen content */}
-            <div className="w-full h-full rounded-[24px] overflow-hidden bg-[#030303] flex flex-col relative pt-5 p-2.5 text-left select-none">
+            <div className="w-full h-full rounded-[24px] overflow-hidden bg-[#03060a] flex flex-col relative pt-5 p-2.5 text-left select-none">
               
               {/* Status Bar */}
               <div className="flex justify-between items-center text-[6px] text-slate-400 font-bold font-mono px-1 mb-2">
@@ -1657,7 +1673,7 @@ export default function CryptoLandingPage() {
               {/* App Navbar */}
               <div className="flex justify-between items-center mb-2.5 px-0.5">
                 <div className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-[#ff4f12]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg className="w-3.5 h-3.5 text-[#00f2fe]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M2 10 Q 6 4, 10 10 T 18 10 T 22 8" />
                     <path d="M2 14 Q 6 8, 10 14 T 18 14 T 22 12" />
                   </svg>
@@ -1709,7 +1725,7 @@ export default function CryptoLandingPage() {
                   )}
                 ].map((btn, idx) => (
                   <div key={idx} className="flex flex-col items-center gap-1 cursor-pointer group">
-                    <div className="w-6 h-6 rounded-lg bg-white/5 border border-white/10 group-hover:bg-[#ff4f12]/15 group-hover:border-[#ff4f12]/30 flex items-center justify-center transition-all">
+                    <div className="w-6 h-6 rounded-lg bg-white/5 border border-white/10 group-hover:bg-[#00f2fe]/15 group-hover:border-[#00f2fe]/30 flex items-center justify-center transition-all">
                       {btn.icon}
                     </div>
                     <span className="text-[5px] font-bold text-slate-400 group-hover:text-slate-200 transition-colors">{btn.label}</span>
@@ -1726,7 +1742,7 @@ export default function CryptoLandingPage() {
                 </div>
                 <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden flex">
                   <div className="h-full bg-blue-500" style={{ width: "45%" }} />
-                  <div className="h-full bg-orange-500" style={{ width: "35%" }} />
+                  <div className="h-full bg-[#4facfe]" style={{ width: "35%" }} />
                   <div className="h-full bg-purple-500" style={{ width: "20%" }} />
                 </div>
               </div>
@@ -1758,9 +1774,9 @@ export default function CryptoLandingPage() {
                       sym: "BTC", 
                       val: "$8,240.00", 
                       amt: "0.12 BTC",
-                      color: "bg-orange-500/10 border-orange-500/20 text-orange-400",
+                      color: "bg-[#4facfe]/10 border-[#4facfe]/20 text-cyan-400",
                       logo: (
-                        <svg className="w-2.5 h-2.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <svg className="w-2.5 h-2.5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <circle cx="12" cy="12" r="10" />
                           <path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9m0 0h5.5a2.5 2.5 0 0 1 0 5H9" />
                         </svg>
@@ -1839,7 +1855,7 @@ export default function CryptoLandingPage() {
                     </svg>
                   )}
                 ].map((tab, idx) => (
-                  <div key={idx} className={`flex flex-col items-center gap-0.5 cursor-pointer ${tab.active ? 'text-[#ff4f12]' : 'text-slate-500 hover:text-slate-300'}`}>
+                  <div key={idx} className={`flex flex-col items-center gap-0.5 cursor-pointer ${tab.active ? 'text-[#00f2fe]' : 'text-slate-500 hover:text-slate-300'}`}>
                     {tab.icon}
                     <span className="text-[4px] font-bold">{tab.label}</span>
                   </div>
@@ -1870,10 +1886,10 @@ export default function CryptoLandingPage() {
       </section>
 
       {/* FAQs Section */}
-      <section id="faqs" className="py-24 px-6 relative z-10 border-t border-white/5 bg-[#030303]">
+      <section id="faqs" className="py-24 px-6 relative z-10 border-t border-white/5 bg-[#03060a]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-xs uppercase font-bold text-[#ff4f12] tracking-widest bg-[#ff4f12]/10 border border-[#ff4f12]/20 px-3 py-1 rounded-full">
+            <span className="text-xs uppercase font-bold text-[#00f2fe] tracking-widest bg-[#00f2fe]/10 border border-[#00f2fe]/20 px-3 py-1 rounded-full">
               FAQS
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-white mt-4 mb-4">
@@ -1895,7 +1911,7 @@ export default function CryptoLandingPage() {
                   className="w-full px-6 py-5 flex items-center justify-between text-left text-sm md:text-base font-bold text-white hover:bg-white/2 transition-colors"
                 >
                   <span>{item.question}</span>
-                  <Plus className={`w-4 h-4 text-[#ff4f12] transform transition-transform duration-300 ${
+                  <Plus className={`w-4 h-4 text-[#00f2fe] transform transition-transform duration-300 ${
                     activeFAQ === idx ? 'rotate-45' : ''
                   }`} />
                 </button>
@@ -1928,10 +1944,10 @@ export default function CryptoLandingPage() {
           {/* Logo Column */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[#0c0c12] border border-[#ff4f12]/30 flex items-center justify-center shadow-[0_0_12px_rgba(255,79,18,0.15)] overflow-hidden">
+              <div className="w-8 h-8 rounded-lg bg-[#0c0c12] border border-[#00f2fe]/30 flex items-center justify-center shadow-[0_0_12px_rgba(0,242,254,0.15)] overflow-hidden">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                  <path d="M2 12c3-4 5-4 8 0s5 4 8 0" stroke="#ff4f12" strokeWidth="2.5" strokeLinecap="round" />
-                  <path d="M6 12c3 4 5 4 8 0s5-4 8 0" stroke="#ff8f66" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M2 12c3-4 5-4 8 0s5 4 8 0" stroke="#00f2fe" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M6 12c3 4 5 4 8 0s5-4 8 0" stroke="#4facfe" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </div>
               <span className="text-lg font-bold text-white">Wae Sync</span>
@@ -1980,7 +1996,7 @@ export default function CryptoLandingPage() {
               <a 
                 key={idx} 
                 href="#" 
-                className="text-xs font-bold text-slate-500 hover:text-[#ff4f12] transition-colors"
+                className="text-xs font-bold text-slate-500 hover:text-[#00f2fe] transition-colors"
               >
                 {social}
               </a>

@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #030303;
+  --background: #03060a;
   --foreground: #f8fafc;
-  --card-bg: rgba(10, 10, 15, 0.7);
-  --accent-orange: #ff4f12;
-  --accent-orange-glow: rgba(255, 79, 18, 0.15);
-  --border-light: rgba(255, 255, 255, 0.05);
-  --border-glow: rgba(255, 79, 18, 0.1);
+  --card-bg: rgba(6, 10, 18, 0.7);
+  --accent-neon: #00f2fe;
+  --accent-neon-glow: rgba(0, 242, 254, 0.15);
+  --border-light: rgba(255, 255, 255, 0.04);
+  --border-glow: rgba(0, 242, 254, 0.08);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-accent-orange: var(--accent-orange);
-  --color-accent-orange-glow: var(--accent-orange-glow);
+  --color-accent-neon: var(--accent-neon);
+  --color-accent-neon-glow: var(--accent-neon-glow);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -25,9 +25,9 @@ body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   background-image: 
-    radial-gradient(circle at 50% -100px, rgba(255, 79, 18, 0.12) 0%, transparent 60%),
-    radial-gradient(circle at 10% 40%, rgba(147, 51, 234, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(255, 79, 18, 0.04) 0%, transparent 40%);
+    radial-gradient(circle at 50% -120px, rgba(0, 242, 254, 0.14) 0%, transparent 60%),
+    radial-gradient(circle at 10% 40%, rgba(0, 242, 254, 0.02) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(79, 172, 254, 0.05) 0%, transparent 40%);
   background-attachment: fixed;
 }
 
@@ -36,14 +36,14 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #030303;
+  background: #03060a;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-orange);
+  background: var(--accent-neon);
 }
 
 /* Animations */
@@ -86,10 +86,10 @@ body {
 
 /* Mesh grid background helper */
 .grid-overlay {
-  background-size: 45px 45px;
+  background-size: 50px 50px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 242, 254, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 242, 254, 0.015) 1px, transparent 1px);
 }
 
 @keyframes circuitDraw {
