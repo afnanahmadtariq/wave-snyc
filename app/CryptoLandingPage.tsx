@@ -389,18 +389,80 @@ export default function CryptoLandingPage() {
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div 
-              initial={{ opacity: 0, y: -20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              exit={{ opacity: 0, y: -20 }} 
-              className="absolute top-20 left-0 w-full bg-[#050508] border-b border-white/10 flex flex-col p-6 gap-4 z-40 md:hidden"
+              initial={{ opacity: 0, height: 0 }} 
+              animate={{ opacity: 1, height: "calc(100vh - 80px)" }} 
+              exit={{ opacity: 0, height: 0 }} 
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="absolute top-20 left-0 w-full bg-[#03060a]/98 backdrop-blur-2xl border-t border-white/5 flex flex-col justify-between overflow-y-auto z-40 md:hidden p-8"
             >
-              <a href="#dashboard" className="text-lg text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Dashboard</a>
-              <a href="#features" className="text-lg text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Features</a>
-              <a href="#pricing" className="text-lg text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
-              <a href="#faqs" className="text-lg text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>FAQs</a>
-              <button className="w-full py-3 mt-2 text-sm font-extrabold rounded-full bg-gradient-to-r from-[#00f2fe] to-[#4facfe] text-[#03060a]">
-                Launch App
-              </button>
+              {/* Top Section: Quick Metrics */}
+              <div className="space-y-8">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-2xl bg-white/2 border border-white/5 flex flex-col gap-1">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Network Gas</span>
+                    <span className="text-sm font-bold text-[#00f2fe] flex items-center gap-1.5 font-mono">
+                      <Zap className="w-3.5 h-3.5" /> 18 Gwei
+                    </span>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-white/2 border border-white/5 flex flex-col gap-1">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">System Status</span>
+                    <span className="text-sm font-bold text-emerald-400 flex items-center gap-1.5 font-mono">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Secure
+                    </span>
+                  </div>
+                </div>
+
+                {/* Nav Links */}
+                <div className="flex flex-col gap-5">
+                  {[
+                    { name: "Dashboard", href: "#dashboard", icon: <Layers className="w-5 h-5 text-slate-400" /> },
+                    { name: "Features", href: "#features", icon: <Zap className="w-5 h-5 text-slate-400" /> },
+                    { name: "Pricing", href: "#pricing", icon: <Compass className="w-5 h-5 text-slate-400" /> },
+                    { name: "FAQs", href: "#faqs", icon: <Info className="w-5 h-5 text-slate-400" /> }
+                  ].map((item, idx) => (
+                    <motion.a 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.08, duration: 0.3 }}
+                      key={item.name}
+                      href={item.href} 
+                      className="flex items-center gap-4 text-xl font-bold text-slate-300 hover:text-white group transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-[#00f2fe]/30 group-hover:bg-[#00f2fe]/5 transition-all">
+                        {item.icon}
+                      </div>
+                      <span className="group-hover:text-white transition-colors">{item.name}</span>
+                      <ChevronRight className="w-5 h-5 text-slate-600 ml-auto group-hover:text-[#00f2fe] group-hover:translate-x-1 transition-all" />
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Section: CTA and Wallet details */}
+              <div className="space-y-6 pt-8 border-t border-white/5 mt-auto">
+                <div className="flex items-center justify-between px-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span className="text-xs font-mono text-slate-400">Wallet: afnan.eth</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-[#00f2fe] bg-[#00f2fe]/10 border border-[#00f2fe]/20 px-2 py-0.5 rounded">
+                    0x9f...a18c
+                  </span>
+                </div>
+                
+                <button className="w-full py-4 text-sm font-extrabold rounded-2xl bg-gradient-to-r from-[#00f2fe] to-[#4facfe] text-[#03060a] shadow-[0_0_20px_rgba(0,242,254,0.15)] flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.99] transition-all">
+                  Launch Web3 App <ArrowUpRight className="w-4 h-4" />
+                </button>
+
+                <div className="flex justify-center gap-8 text-xs text-slate-500 font-mono">
+                  <a href="#twitter" className="hover:text-white transition-colors">X.com</a>
+                  <span>•</span>
+                  <a href="#discord" className="hover:text-white transition-colors">Discord</a>
+                  <span>•</span>
+                  <a href="#github" className="hover:text-white transition-colors">Github</a>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -724,7 +786,7 @@ export default function CryptoLandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Box 1 (Wide: Span 2 cols) */}
-            <div className="md:col-span-2 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[380px] group hover:border-[#00f2fe]/30 transition-all duration-300">
+            <div className="md:col-span-2 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-auto min-h-[380px] md:h-[380px] group hover:border-[#00f2fe]/30 transition-all duration-300">
               <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#00f2fe]/5 blur-[70px] rounded-full pointer-events-none" />
               <div>
                 <span className="text-[10px] font-bold text-[#00f2fe] font-mono uppercase bg-[#00f2fe]/10 border border-[#00f2fe]/20 px-2 py-0.5 rounded">
@@ -941,7 +1003,7 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Box 4: Cross-Chain Smart Routing (Span 2 cols) */}
-            <div className="md:col-span-2 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-[380px] group hover:border-[#00f2fe]/30 transition-all duration-300">
+            <div className="md:col-span-2 p-8 rounded-3xl border border-white/5 bg-[#0a0a0f]/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between h-auto min-h-[380px] md:h-[380px] group hover:border-[#00f2fe]/30 transition-all duration-300">
               <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#00f2fe]/5 blur-[70px] rounded-full pointer-events-none" />
               
               {(() => {
@@ -1112,8 +1174,8 @@ export default function CryptoLandingPage() {
                     </div>
 
                     {/* Right side: dynamic SVG route visualization */}
-                    <div className="md:w-[55%] h-full flex items-center justify-center relative">
-                      <div className="w-full h-full max-h-[220px] relative border border-white/5 rounded-2xl bg-[#050508]/40 overflow-hidden flex items-center justify-center">
+                    <div className="w-full md:w-[55%] h-auto md:h-full flex items-center justify-center relative">
+                      <div className="w-full h-[220px] md:h-full md:max-h-[220px] relative border border-white/5 rounded-2xl bg-[#050508]/40 overflow-hidden flex items-center justify-center">
                         <svg className="w-full h-full" viewBox="0 0 280 200">
                           {/* Connecting Paths */}
                           {/* Base to Router */}
