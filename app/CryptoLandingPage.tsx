@@ -468,10 +468,27 @@ export default function CryptoLandingPage() {
             <div className="absolute top-0 right-0 w-[450px] h-[350px] bg-[#00f2fe]/5 blur-[100px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-purple-500/5 blur-[100px] rounded-full pointer-events-none" />
 
-            <div className="border border-white/5 rounded-2xl overflow-hidden bg-[#050508]/90 flex flex-col md:flex-row h-[550px]">
-              {/* Mockup Sidebar */}
-              <div className="w-full md:w-56 border-r border-white/5 bg-[#08080c]/50 p-4 flex flex-col justify-between hidden md:flex">
-                <div className="space-y-6">
+            {/* Dynamic Scaling Wrapper */}
+            <div 
+              ref={setContainerRef} 
+              className="w-full relative overflow-hidden" 
+              style={{ height: `${550 * scale}px` }}
+            >
+              <div 
+                className="border border-white/5 rounded-2xl overflow-hidden bg-[#050508]/90 flex flex-row h-[550px]"
+                style={{ 
+                  width: '1000px', 
+                  height: '550px', 
+                  transform: `translateX(-50%) scale(${scale})`, 
+                  transformOrigin: 'top center',
+                  position: 'absolute',
+                  top: 0,
+                  left: '50%'
+                }}
+              >
+                {/* Mockup Sidebar */}
+                <div className="w-56 border-r border-white/5 bg-[#08080c]/50 p-4 flex flex-col justify-between flex-shrink-0">
+                  <div className="space-y-6">
                   {/* Sidebar Brand */}
                   <div className="flex items-center gap-2 px-2">
                     <div className="w-6 h-6 rounded bg-[#00f2fe]/10 border border-[#00f2fe]/20 flex items-center justify-center">
@@ -535,7 +552,7 @@ export default function CryptoLandingPage() {
                 {/* View Content */}
                 <div className="flex-1 p-6 overflow-y-auto space-y-6 scrollbar-thin">
                   {/* Balance / Stats Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-3 gap-4">
                     <div className="p-4 rounded-xl border border-white/5 bg-[#0c0c12]/60 backdrop-blur-sm">
                       <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-1">Portfolio Balance</p>
                       <div className="flex items-baseline gap-2">
@@ -662,7 +679,8 @@ export default function CryptoLandingPage() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
         </div>
       </section>
 
