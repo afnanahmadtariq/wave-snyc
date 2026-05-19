@@ -1627,41 +1627,225 @@ export default function CryptoLandingPage() {
             </div>
 
             {/* Mobile Screen content */}
-            <div className="w-full h-full rounded-[24px] overflow-hidden bg-[#030303] flex flex-col relative pt-5 p-3 text-left">
-              {/* Header */}
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-[8px] font-bold text-[#ff4f12] font-mono">WAE SYNC MOBILE</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <div className="w-full h-full rounded-[24px] overflow-hidden bg-[#030303] flex flex-col relative pt-5 p-2.5 text-left select-none">
+              
+              {/* Status Bar */}
+              <div className="flex justify-between items-center text-[6px] text-slate-400 font-bold font-mono px-1 mb-2">
+                <span>9:41</span>
+                <div className="flex items-center gap-1">
+                  {/* Signal */}
+                  <svg className="w-1.5 h-1.5 text-slate-400" viewBox="0 0 100 100" fill="currentColor">
+                    <rect x="0" y="80" width="15" height="20" rx="2" />
+                    <rect x="25" y="60" width="15" height="40" rx="2" />
+                    <rect x="50" y="40" width="15" height="60" rx="2" />
+                    <rect x="75" y="20" width="15" height="80" rx="2" />
+                  </svg>
+                  {/* Wifi */}
+                  <svg className="w-2 h-2 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.58 16.07a6 6 0 0 1 6.85 0" />
+                    <circle cx="12" cy="18" r="1" fill="currentColor" />
+                  </svg>
+                  {/* Battery */}
+                  <svg className="w-2.5 h-1.5 text-slate-400" viewBox="0 0 20 10" fill="none" stroke="currentColor" strokeWidth="1">
+                    <rect x="0" y="0" width="17" height="10" rx="2" />
+                    <rect x="2" y="2" width="13" height="6" rx="1" fill="currentColor" />
+                    <rect x="18" y="3" width="2" height="4" rx="1" />
+                  </svg>
+                </div>
               </div>
 
-              {/* Balance */}
-              <p className="text-[7px] text-slate-500 font-bold uppercase tracking-widest">NET WORTH</p>
-              <h4 className="text-sm font-extrabold text-white mb-2">$14,834.12</h4>
-
-              {/* Mini Sparkline */}
-              <div className="h-10 w-full relative mb-3 bg-white/2 border border-white/5 rounded-lg overflow-hidden flex items-end">
-                <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 40" preserveAspectRatio="none">
-                  <path d="M 0 35 Q 20 15 40 25 T 80 10 T 100 5 L 100 40 L 0 40 Z" fill="rgba(255,79,18,0.08)" />
-                  <path d="M 0 35 Q 20 15 40 25 T 80 10 T 100 5" fill="none" stroke="#ff4f12" strokeWidth="1.5" />
-                </svg>
+              {/* App Navbar */}
+              <div className="flex justify-between items-center mb-2.5 px-0.5">
+                <div className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5 text-[#ff4f12]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M2 10 Q 6 4, 10 10 T 18 10 T 22 8" />
+                    <path d="M2 14 Q 6 8, 10 14 T 18 14 T 22 12" />
+                  </svg>
+                  <span className="text-[7px] font-black text-white tracking-tight uppercase">Wae Sync</span>
+                </div>
+                <div className="flex items-center gap-1 rounded-full bg-white/5 border border-white/10 px-1.5 py-0.5 text-[5px] text-slate-300 font-mono">
+                  <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>0x7a...3c2f</span>
+                </div>
               </div>
 
-              {/* Tokens list */}
-              <div className="space-y-1">
+              {/* Balance Block */}
+              <div className="mb-2.5 px-0.5">
+                <p className="text-[5px] text-slate-500 font-bold uppercase tracking-widest">Net Worth</p>
+                <h4 className="text-sm font-black text-white tracking-tight leading-tight">$34,921.45</h4>
+                <p className="text-[6px] text-emerald-500 font-bold flex items-center gap-0.5 mt-0.5">
+                  <span>▲</span>
+                  <span>+$1,241.10</span>
+                  <span className="text-slate-500 font-normal">(3.6% today)</span>
+                </p>
+              </div>
+
+              {/* Quick Actions */}
+              <div className="grid grid-cols-4 gap-1 mb-3 px-0.5">
                 {[
-                  { sym: "ETH", val: "$4,250", change: "+3.8%" },
-                  { sym: "SOL", val: "$2,151", change: "+8.4%" },
-                  { sym: "BTC", val: "$8,432", change: "+2.1%" }
-                ].map((item, idx) => (
-                  <div key={idx} className="p-1.5 border border-white/5 rounded-lg bg-white/2 flex items-center justify-between text-[8px] font-bold font-mono">
-                    <span className="text-white">{item.sym}</span>
-                    <div className="flex items-center gap-1">
-                      <span className="text-slate-400">{item.val}</span>
-                      <span className="text-emerald-500 text-[7px]">{item.change}</span>
+                  { label: "Send", icon: (
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <line x1="5" y1="19" x2="19" y2="5" />
+                      <polyline points="12 5 19 5 19 12" />
+                    </svg>
+                  )},
+                  { label: "Receive", icon: (
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <line x1="19" y1="5" x2="5" y2="19" />
+                      <polyline points="12 19 5 19 5 12" />
+                    </svg>
+                  )},
+                  { label: "Swap", icon: (
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path d="M17 1v22M7 23V1" />
+                      <polyline points="3 5 7 1 11 5" />
+                      <polyline points="13 19 17 23 21 19" />
+                    </svg>
+                  )},
+                  { label: "Bridge", icon: (
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                  )}
+                ].map((btn, idx) => (
+                  <div key={idx} className="flex flex-col items-center gap-1 cursor-pointer group">
+                    <div className="w-6 h-6 rounded-lg bg-white/5 border border-white/10 group-hover:bg-[#ff4f12]/15 group-hover:border-[#ff4f12]/30 flex items-center justify-center transition-all">
+                      {btn.icon}
                     </div>
+                    <span className="text-[5px] font-bold text-slate-400 group-hover:text-slate-200 transition-colors">{btn.label}</span>
                   </div>
                 ))}
               </div>
+
+              {/* Allocation Progress Bar */}
+              <div className="mb-3 px-0.5">
+                <div className="flex justify-between items-center text-[5px] text-slate-400 font-bold mb-1">
+                  <span>ETH 45%</span>
+                  <span>BTC 35%</span>
+                  <span>SOL 20%</span>
+                </div>
+                <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden flex">
+                  <div className="h-full bg-blue-500" style={{ width: "45%" }} />
+                  <div className="h-full bg-orange-500" style={{ width: "35%" }} />
+                  <div className="h-full bg-purple-500" style={{ width: "20%" }} />
+                </div>
+              </div>
+
+              {/* Assets list */}
+              <div className="flex-1 flex flex-col justify-start overflow-hidden px-0.5">
+                <p className="text-[5px] font-bold text-slate-500 uppercase tracking-widest mb-1">My Assets</p>
+                <div className="space-y-1 overflow-hidden">
+                  {[
+                    { 
+                      name: "Ethereum", 
+                      sym: "ETH", 
+                      val: "$4,810.00", 
+                      amt: "1.85 ETH",
+                      color: "bg-blue-500/10 border-blue-500/20 text-blue-400",
+                      logo: (
+                        <svg className="w-2.5 h-2.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M12 2L2 12h20L12 2zM12 22L2 12h20L12 22z" />
+                        </svg>
+                      ),
+                      sparkline: (
+                        <svg className="w-8 h-2.5 text-emerald-500" viewBox="0 0 40 10" fill="none">
+                          <path d="M0,8 Q5,2 10,7 T20,1 T30,5 L40,0" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                        </svg>
+                      )
+                    },
+                    { 
+                      name: "Bitcoin", 
+                      sym: "BTC", 
+                      val: "$8,240.00", 
+                      amt: "0.12 BTC",
+                      color: "bg-orange-500/10 border-orange-500/20 text-orange-400",
+                      logo: (
+                        <svg className="w-2.5 h-2.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9m0 0h5.5a2.5 2.5 0 0 1 0 5H9" />
+                        </svg>
+                      ),
+                      sparkline: (
+                        <svg className="w-8 h-2.5 text-rose-500" viewBox="0 0 40 10" fill="none">
+                          <path d="M0,2 Q8,9 15,4 T25,8 T35,2 L40,5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                        </svg>
+                      )
+                    },
+                    { 
+                      name: "Solana", 
+                      sym: "SOL", 
+                      val: "$3,125.00", 
+                      amt: "25.0 SOL",
+                      color: "bg-purple-500/10 border-purple-500/20 text-purple-400",
+                      logo: (
+                        <svg className="w-2.5 h-2.5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M4 6h16L16 10H0L4 6zM20 18H4L8 14H24L20 18z" />
+                        </svg>
+                      ),
+                      sparkline: (
+                        <svg className="w-8 h-2.5 text-emerald-500" viewBox="0 0 40 10" fill="none">
+                          <path d="M0,9 Q10,1 20,8 T30,2 L40,1" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                        </svg>
+                      )
+                    }
+                  ].map((item, idx) => (
+                    <div key={idx} className="p-1 border border-white/5 rounded-lg bg-white/2 flex items-center justify-between transition-colors hover:bg-white/5">
+                      <div className="flex items-center gap-1">
+                        <div className={`w-4 h-4 rounded flex items-center justify-center border ${item.color.split(' ')[0]} ${item.color.split(' ')[1]}`}>
+                          {item.logo}
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-[6px] font-bold text-white leading-tight">{item.sym}</span>
+                          <span className="text-[4px] text-slate-500 leading-tight font-mono">{item.amt}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="px-0.5">
+                        {item.sparkline}
+                      </div>
+
+                      <div className="text-right flex flex-col justify-center">
+                        <span className="text-[6px] font-bold text-white font-mono leading-tight">{item.val}</span>
+                        <span className="text-[4px] text-emerald-500 font-bold leading-tight font-mono">+2.4%</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Tab Bar */}
+              <div className="border-t border-white/5 pt-1.5 mt-auto flex justify-around items-center text-slate-500">
+                {[
+                  { label: "Home", active: true, icon: (
+                    <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                  )},
+                  { label: "Wallet", active: false, icon: (
+                    <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <line x1="12" y1="4" x2="12" y2="20" />
+                    </svg>
+                  )},
+                  { label: "Swap", active: false, icon: (
+                    <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path d="M8 3 4 7l4 4M16 21l4-4-4-4M4 7h16M20 17H4" />
+                    </svg>
+                  )},
+                  { label: "Settings", active: false, icon: (
+                    <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82V19a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06" />
+                    </svg>
+                  )}
+                ].map((tab, idx) => (
+                  <div key={idx} className={`flex flex-col items-center gap-0.5 cursor-pointer ${tab.active ? 'text-[#ff4f12]' : 'text-slate-500 hover:text-slate-300'}`}>
+                    {tab.icon}
+                    <span className="text-[4px] font-bold">{tab.label}</span>
+                  </div>
+                ))}
+              </div>
+
             </div>
           </motion.div>
 
