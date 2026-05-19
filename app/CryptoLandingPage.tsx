@@ -221,7 +221,7 @@ export default function CryptoLandingPage() {
     const handleResize = () => {
       const parentWidth = containerRef.getBoundingClientRect().width;
       const targetWidth = 1000;
-      setScale(Math.min(1, parentWidth / targetWidth));
+      setScale(parentWidth / targetWidth);
     };
     handleResize();
     const observer = new ResizeObserver(handleResize);
